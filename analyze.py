@@ -13,11 +13,12 @@ if len(lines) <= 0:
     print ("File is empty")
     quit(0)
 
-line_number = 0
+line_number = 1
 
 for line in lines:
     words = line.split()
-    print("Linija: ", line_number)
+    print("--------Linija: ", line_number)
+    line_number += 1
     for word in words:
         if is_keyword(word):
             print("Keyword: ", word)
@@ -35,8 +36,10 @@ for line in lines:
             print("Identifier: ", word)
             last_word = False
             continue
+        if word in identifiers:
+            print("Identifier: ", word)
         print("Value: ", word)
-        line_number += 1
+
 
         
 
