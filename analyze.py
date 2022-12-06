@@ -1,9 +1,12 @@
+from pathlib import Path
 import re
+import os
 from operators import is_operator
 from keywords import is_keyword
 from separators import is_separator
 
-file = open("code.txt", "r")
+filepath = Path(__file__).parent / "Code.txt"
+file = open(filepath, "r")
 
 lines=file.readlines()
 
@@ -42,7 +45,6 @@ for line in lines:
             print("Separator: ", word)
             continue
             
-
         if last_word:
             #Dodaje trenutnu rijec u listu identifikatora ako je zadnja bila var ili fun
             identifiers.append(word)
