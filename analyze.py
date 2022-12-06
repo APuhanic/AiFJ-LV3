@@ -1,9 +1,17 @@
-from pathlib import Path
 import re
-import os
 from operators import is_operator
 from keywords import is_keyword
 from separators import is_separator
+from comment import is_comment
+from constant import is_constant
+from pathlib import Path
+
+def analyze_keyword(word):
+    print("('",word,"', ključna riječ)")
+    #Ako je var ili fun postavlja zastavicu last_word na True da bi se sljedeca rijec mogla spremiti kao identifikator
+    if word == "var" or word == "fun":
+        return True
+    return False
 
 filepath = Path(__file__).parent / "Code.txt"
 file = open(filepath, "r")
@@ -29,32 +37,30 @@ for line in lines:
 
     #Prođi kroz svaku "rijec" i analiziaj
     for word in words:
-        #Analiza je li riječ vec definiran keyword
+        #Analizira je li riječ vec definiran keyword
         if is_keyword(word):
-            print("Keyword: ", word)
-            #Ako je keyword, onda za var i fun postavlja zastavicu last_word na True da bi se sljedeca rijec mogla spremiti kao identifikator
-            if word == "var" or word == "fun":
-                last_word = True
+            last_word = analyze_keyword(word)
             continue #Continue nije dobro riješenje za ovo
 
         if is_operator(word):
-            print("Operator: ", word)
+            print("('",word,"', operator)")
             continue
 
         if is_separator(word):
-            print("Separator: ", word)
+            print("('",word,"', separator)")
             continue
             
         if last_word:
             #Dodaje trenutnu rijec u listu identifikatora ako je zadnja bila var ili fun
             identifiers.append(word)
-            print("Identifier: ", word)
+            print("('",word,"', identifikator)")
             last_word = False
             continue
 
         if word in identifiers:
-            print("Identifier: ", word)
+            print("('",word,"', identifikator)")
             continue
 
         if not is_keyword(word) or not is_operator(word) or not is_separator(word):
-            print("Value: ", word)
+            print("('",word,"', vrijednost)")
+
