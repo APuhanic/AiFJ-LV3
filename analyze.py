@@ -16,9 +16,13 @@ if len(lines) <= 0:
 line_number = 1
 
 for line in lines:
-    words = line.split()
     print("--------Linija: ", line_number)
     line_number += 1
+    last_word = False
+
+    words = re.sub(r"(\(|\)|;)", r' \1 ', str(line))
+    words = words.split()
+
     for word in words:
         if is_keyword(word):
             print("Keyword: ", word)
