@@ -5,6 +5,7 @@ from separators import is_separator
 from comment import is_comment
 from constant import is_constant
 from pathlib import Path
+from collections import Counter
 
 def analyze_keyword(word):
     print("('",word,"', ključna riječ)")
@@ -19,6 +20,9 @@ file = open(filepath, "r")
 lines=file.readlines()
 
 identifiers = []
+operators = []
+separators = []
+
 
 if len(lines) <= 0:
     print ("File is empty")
@@ -43,10 +47,12 @@ for line in lines:
             continue #Continue nije dobro riješenje za ovo
 
         if is_operator(word):
+            separators.append(word)
             print("('",word,"', operator)")
             continue
 
         if is_separator(word):
+            operators.append(word)
             print("('",word,"', separator)")
             continue
             
@@ -64,3 +70,9 @@ for line in lines:
         if not is_keyword(word) or not is_operator(word) or not is_separator(word):
             print("('",word,"', vrijednost)")
 
+print("Identifikatori: ", len(identifiers), identifiers)
+print(Counter(identifiers))
+print("Separatori: ", len(separators), separators)
+print(Counter(separators))
+print("Operatori: ", len(operators), operators)
+print(Counter(operators))

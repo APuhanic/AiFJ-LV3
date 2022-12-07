@@ -1,5 +1,6 @@
 var a = 42 + 3;
 var b=4+2;
+var b= 2+a;
 fun izracunaj(b){
     return b * 2;
 }
