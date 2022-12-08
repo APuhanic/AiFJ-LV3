@@ -19,6 +19,7 @@ file = open(filepath, "r")
 
 lines=file.readlines()
 
+keywords = []
 identifiers = []
 operators = []
 separators = []
@@ -50,6 +51,7 @@ for line in lines:
     for word in words:
         #Analizira je li riječ vec definiran keyword
         if is_keyword(word):
+            keywords.append(word)
             last_word = analyze_keyword(word)
             continue #Continue nije dobro riješenje za ovo
 
@@ -64,6 +66,7 @@ for line in lines:
             continue
             
         if is_constant(word):
+            keywords.append(word)
             print("('",word,"', ključna riječ)")
             last_word_const = True
             continue
@@ -87,6 +90,8 @@ for line in lines:
 
         if not is_keyword(word) or not is_operator(word) or not is_separator(word):
             print("('",word,"', vrijednost)")
+
+print("Ključne riječi: ", len(keywords), str(Counter(keywords))[8:-1])
 
 print("Identifikatori: ", len(identifiers), str(Counter(identifiers))[8:-1])
 
