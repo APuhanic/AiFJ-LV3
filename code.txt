@@ -1,6 +1,8 @@
 var a = 42 + 3;
 var b=4+2;
+#Neki komentar ovdje
 var b= 2+a;
 fun izracunaj(b){
     return b * 2;
 }
+const pi = 3.14;
